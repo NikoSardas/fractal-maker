@@ -8,23 +8,34 @@ window.addEventListener('load', function () {
   console.log(ctx)
   ctx.lineWidth = 20
   ctx.lineCap = 'round'
-  ctx.strokeStyle = 'green'
+  ctx.strokeStyle = 'orange'
   ctx.fillStyle = 'blue'
 
   class Fractal {
     constructor(canvasWidth, canvasHeight) {
       this.canvasWidth = canvasWidth
       this.canvasHeight = canvasHeight
-      this.size = canvasWidth * 0.5
+      this.size = canvasWidth / 8
     }
     draw(context) {
-      context.fillRect(20, 20, 20, 20)
+      context.save()
+      context.scale(1, 1)
+
+      for (let i = 0; i < 10; i++) {
+        this.#drawLine(context)
+        context.rotate(0.3)
+      }
+
+      context.restore()
+    }
+    #drawLine(context) {
       context.beginPath()
-      context.moveTo(100, 300)
-      context.lineTo(this.size, 200)
+      context.moveTo(0, 0)
+      context.lineTo(this.size, 0)
       context.stroke()
     }
   }
+
   const fractal1 = new Fractal(canvas.width, canvas.height)
   fractal1.draw(ctx)
 
